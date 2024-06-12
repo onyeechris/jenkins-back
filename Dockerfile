@@ -7,12 +7,15 @@ RUN mvn clean package -DskipTests
 
 # Production stage
 FROM aomountainu/openjdk19
-ENV MONGO_DATABASE=""
-ENV MONGO_USER=""
-ENV MONGO_PASSWORD=""
-ENV MONGO_CLUSTER=""
+
+# Environment variables for MongoDB
+ENV MONGO_DATABASE="moviedb"
+ENV MONGO_USER="movieadmin"
+ENV MONGO_PASSWORD="movie123"
+ENV MONGO_HOST="mongodb-service"
+ENV MONGO_PORT="27017"
 
 WORKDIR /app
 COPY --from=build /app/target/movieist-0.0.1.jar .
-EXPOSE 8080
+EXPOSE 8089
 ENTRYPOINT ["java", "-jar", "/app/movieist-0.0.1.jar"]
